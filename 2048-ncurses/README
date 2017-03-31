@@ -1,0 +1,97 @@
+███████████████████████████████████████████████████████████████████████████████
+███████████████████████████████████████████████████████████████████████████████
+███████████████████████████████████████████████████████████████████████████████
+█████████████████  _______  ________  ___   ___  ________     █████████████████
+█████████████████ /  ___  \|\   __  \|\  \ |\  \|\   __  \    █████████████████
+█████████████████/__/|_/  /\ \  \|\  \ \  \\_\  \ \  \|\  \   █████████████████
+█████████████████|__|//  / /\ \  \\\  \ \______  \ \   __  \  █████████████████
+█████████████████    /  /_/__\ \  \\\  \|_____|\  \ \  \|\  \ █████████████████
+█████████████████   |\________\ \_______\     \ \__\ \_______\█████████████████
+█████████████████    \|_______|\|_______|      \|__|\|_______|█████████████████
+███████████████████████████████████████████████████████████████████████████████
+████████████████████████████████████████████████ Versiunea ncurses :( ... █████
+███████████████████████████████████████████████████████████████████████████████
+
+-------------------------------------------------------------------------------
+------------------------------------ CUPRINS ----------------------------------
+-------------------------------------------------------------------------------
+1) Instructiuni de utilizare
+2) Explicarea modului in care am implementat cerintele
+3) Functii BONUS
+4) Alte specificatii
+
+-------------------------------------------------------------------------------
+------------------------- 1) Instructiuni de utilizare ------------------------
+-------------------------------------------------------------------------------
+	-Odata intrat in joc, utilizatorului i se cere sa aleaga una dintre 
+	optiunile NEW GAME, RESUME(inactiva la momentul pornirii programului)
+	si QUIT.
+	
+	-Pentru a naviga prin aceste optiuni, se vor folosi sagetile sus/jos de la
+	tastatura; iar pentru a selecta o optiune, se va apasa tasta ENTER.
+
+	-Instructiunile pentru interactiunea cu celulele din tabela de joc
+	sunt afisate in panoul de control de langa tabela.
+
+-------------------------------------------------------------------------------
+----------- 2) Explicarea modului in care am implementat cerintele ------------
+-------------------------------------------------------------------------------
+------ CERINTA 1 
+		Pentru navigarea prin meniu am folosit o bucla while si un switch
+		ca sa preiau comenzile de la tastatura.
+		Am creat eticheta "menu" la inceputul acestui while pentru a ma putea
+		folosi mai tarziu de comanda "goto".
+		Pentru afisarea optiunilor din meniu am folosit text generat pe baza de 
+		ASCII art pe care l-am salvat in fisierul "MENIU" din radacina arhivei.
+		Am folosit foarte mult panelurile din biblioteca panel.h pentru a putea
+		lucra separat cu parti din ecranul jocului.
+
+------ CERINTA 2
+		Tabela jocului am creat-o cu ajutorul a 17 paneluri
+			-primul este pentru chenarul care incadreaza tabela
+			-celelalte 16 sunt pentru celulele in care apar numerele
+		Pentru generarea aleatoare a unui element din multimea {2,4} am folosit
+		functia "GENEREAZA_UN_ELEMENT_ALEATOR" (pe bune?).
+		Pentru panoul de control, am dorit ca timpul si data sa se actualizeze
+		in timp real asa ca am folosit biblioteca select.h. 
+
+------ CERINTA 3
+		Pentru jocul propriu-zis, m-am folosit de o matrice "m" 4x4 care 
+		retine numerele de pe tabela. Odata inregistrata o mutare, functia 
+		"PRELUCREAZA_MUTAREA" reinoieste starea matricei "m" in functie de 
+		mutarea aleasa, iar functia "ACTUALIZEAZA_TABELA" reinoieste starea 
+		tabelei din mediul grafic in functie de starea actuala a matricei "m".
+		Pentru a verifica daca o mutare este valida sau nu, prelucrez mutarea
+		si verific daca s-a schimbat ceva in matricea "m".
+		Pentru actiualizarea scorului folosesc functia "REFRESH_CONTROL_PANEL".
+
+------ CERINTA 4
+		Functia "select" ma ajuta sa verific cat timp a trecut de la 
+		ultima mutare. Pentru calculul celei mai optime mutari, prelucrez
+		matricea "m" pentru fiecare mutare si verific cand se imbina cele mai
+		multe casute.
+
+------ CERINTA 5
+		Variabila "ok_exista_mutari" imi spune daca, dupa ce toate mutarile au
+		fost verificate, exista vreo mutare valida. Daca nu, se afiseaza un mesaj
+		corespunzator pentru cel care pierde intotdeauna la acest joc enervant,
+		se reseteaza scorul si programul se intoarce iar in bucla while a meniului.
+
+-------------------------------------------------------------------------------
+------------------------------- 3) Functii BONUS ------------------------------
+-------------------------------------------------------------------------------
+	Optiunea UNDO - intoarce tabela la starea precedenta
+	Optiunea AUTO - programul alege mutarea cea mai eficienta
+
+-------------------------------------------------------------------------------
+----------------------------- 4) Alte specificatii ----------------------------
+-------------------------------------------------------------------------------
+1) Pentru rularea corecta a programului este nevoie de un terminal tip "xterm-256"
+2) La rularea comenzii "make run", terminalul trebuie sa fie in modul
+fereastra(nu fullscreen) deoarece terminalul se redimensioneaza la 37x120.
+
+
+
+
+
+
